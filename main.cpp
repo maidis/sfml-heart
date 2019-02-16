@@ -8,13 +8,15 @@
 #include <tuple>
 #include <random>
 
-std::tuple<std::vector<double>, std::vector<double>> generate_points(const int no_pieces) {
+std::tuple<std::vector<double>, std::vector<double>> generate_points(const int no_pieces)
+{
     std::vector<double> vx, vy;
 
     constexpr double PI = 3.14159265358979323846264338327950288;
     double dt = 2.0 * PI / no_pieces;
 
-    for(double t = 0.0; t <= 2.0 * PI ; t += dt) {
+    for(double t = 0.0; t <= 2.0 * PI ; t += dt)
+    {
         vx.emplace_back(16.0 * sin(t) * sin(t) * sin(t));
         vy.emplace_back(13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t));
     }
@@ -25,7 +27,6 @@ std::tuple<std::vector<double>, std::vector<double>> generate_points(const int n
 // The frequency at which our update step will execute
 #define UPDATE_RATE 1.0f / 60.0f
 
-
 int main()
 {
     // Generate the heart curve points
@@ -35,21 +36,16 @@ int main()
     // Reverse Y axis direction
     std::for_each(std::begin(vy), std::end(vy), [](double &y){ y = -y; });
 
-    // Write the output to stdout
-    //write_html_svg(std::cout, vx, vy, 500, 500);
-
-    // sf::VertexArray lines(sf::LineStrip, no_pieces);
-
     std::vector<sf::ConvexShape> line;
     sf::Color color(255, 0, 0);
-
 
     for (int j = 0; j < 50; ++j)
     {
         std::random_device rd;
         std::mt19937 mt(rd());
-        std::uniform_real_distribution<double> dist(1.0, 1920.0);
 
+        std::uniform_real_distribution<double> dist0(1.0, 1920.0);
+        std::uniform_real_distribution<double> dist1(1.0, 1080.0);
         std::uniform_real_distribution<double> dist2(1.0, 10.0);
 
         std::uniform_real_distribution<double> r(0.0, 5.0);
@@ -63,7 +59,9 @@ int main()
         {
             lines.setPoint(i, sf::Vector2f(vx[i], vy[i]));
         }
+
         int scale = dist2(mt);
+
         int rr = r(mt);
         int gg = g(mt);
         int bb = b(mt);
@@ -74,11 +72,12 @@ int main()
 
         lines.setFillColor(color);
         lines.setOutlineThickness(0);
-        lines.setPosition(dist(mt), dist(mt));
+        lines.setPosition(dist0(mt), dist1(mt));
         lines.setScale(scale, scale);
 
         line.push_back(lines);
     }
+
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "sfml-heart", sf::Style::Fullscreen);
 
     // This forces our window to draw at refresh rate of the monitor
@@ -98,7 +97,6 @@ int main()
     float frame_time = 0.0f;
     // This variable keeps track of how many times the update step ran
     int update_limit = 0;
-
 
     while(window.isOpen())
     {
@@ -155,7 +153,6 @@ int main()
                 {
                     line.erase(line.begin() + i);
                 }
-
             }
 
             if (line.size() <= 0)
