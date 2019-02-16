@@ -31,6 +31,6 @@ std::for_each(std::begin(vy), std::end(vy), [](double &y){ y = -y; });
 
 I’ve tested the code with Qt Creator on Fedora 29. With small changes at `CMakeLists.txt` you can run it on Windows and macOS too.
 
-You have to collect all the hearts to reveal the secret message. Maybe I can turn this demo into a simple game (match the same colored hearts repeatedly in sequence) later.
+You have to collect all the hearts to reveal the secret message. Maybe I can turn this demo into a simple game (match the same colored hearts in sequence) later.
 
 ![](sfml-hearts-idea.png)
