@@ -4,12 +4,13 @@ sfml-heart is SFML port of [Valentine's Day heart shape from Solarian Programmer
 
 ![](./sfml-hearts.png)
 
-In order to generate the above shape we can use the parametric form of the outer curve:
+In order to generate the above heart shapes we can use the parametric form of the outer curve:
 
 ```
 x(t) = 16sin(t)^3;
 y(t) = 13cos(t) − 5cos(2t) − 2cos(3t) − cos(4t);
 ```
+
 where
 
 ```
@@ -31,6 +32,6 @@ std::for_each(std::begin(vy), std::end(vy), [](double &y){ y = -y; });
 
 I’ve tested the code with Qt Creator on Fedora 29. With small changes at `CMakeLists.txt` you can run it on Windows and macOS too.
 
-You have to collect all the hearts to reveal the secret message. Maybe I can turn this demo into a simple game (match the same colored hearts in sequence) later.
+In this demo you have to collect all the hearts to reveal the secret message. Maybe I can turn this demo into a simple game (match the same colored hearts in sequence) later.
 
 ![](sfml-hearts-idea.png)
